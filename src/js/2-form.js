@@ -3,7 +3,8 @@ let formData = {
   message: '',
 };
 
-const form = document.querySelector('.feedback-form');
+const input = document.querySelector('.feedback-form');
+const submit = document.querySelector('.feedback-form');
 const savedFormData = localStorage.getItem('feedback-form-state');
 
 if (savedFormData) {
@@ -12,12 +13,12 @@ if (savedFormData) {
   document.querySelector('textarea[name="message"]').value = formData.message;
 }
 
-form.addEventListener('input', event => {
+input.addEventListener('input', event => {
   formData[event.target.name] = event.target.value.trim();
   localStorage.setItem('feedback-form-state', JSON.stringify(formData));
 });
 
-form.addEventListener('submit', event => {
+submit.addEventListener('submit', event => {
   event.preventDefault();
   if (formData.email && formData.message) {
     console.log(formData);
@@ -26,7 +27,8 @@ form.addEventListener('submit', event => {
       email: '',
       message: '',
     };
-    form.reset();
+    document.querySelector('input[name="email"]').value = '';
+    document.querySelector('textarea[name="message"]').value = '';
   } else {
     alert('Fill please all fields');
   }
